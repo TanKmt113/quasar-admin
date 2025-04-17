@@ -1,22 +1,61 @@
 <template>
-  <q-card class="no-shadow" bordered>
-    <q-separator></q-separator>
-    <q-card-section class="q-pa-none">
-      <q-table
-        square
-        class="no-shadow"
-        :rows="data"
-        :columns="columns"
-        row-key="name"
-        :filter="filter"
-      >
-      </q-table>
-    </q-card-section>
-  </q-card>
+  <section class="q-pa-md q-mb-lg q-pt-sm">
+    <!-- Header -->
+    <div class="row justify-between">
+      <div>
+        <span class="text-h5 text-weight-bold">Kế hoạch mua hàng</span>
+      </div>
+      <div>
+        <q-btn color="primary" icon="add" label="Thêm mới" />
+      </div>
+    </div>
+    <!-- End -->
+    <!-- Filter -->
+    <q-card class="row justify-between q-pa-sm bg-white q-mt-md no-shadow">
+      <div>
+        <q-select
+          style="width: 300px"
+          v-model="model"
+          :options="options"
+          label="Bộ lọc"
+          placeholder="Bộ  lọc"
+        />
+      </div>
+      <div>
+        <div>
+          <q-input v-model="text" label="Tìm kiếm" style="width: 300px">
+            <template v-slot:append>
+              <q-icon name="search" />
+            </template>
+          </q-input>
+        </div>
+      </div>
+    </q-card>
+    <!-- End -->
+    <!-- Content -->
+    <div>
+      <q-card class="no-shadow q-mt-md" bordered>
+        <q-separator></q-separator>
+        <q-card-section class="q-pa-none">
+          <q-table
+            square
+            class="no-shadow"
+            :rows="data"
+            :columns="columns"
+            row-key="name"
+            :filter="filter"
+          >
+          </q-table>
+        </q-card-section>
+      </q-card>
+    </div>
+    <!-- End -->
+  </section>
 </template>
 
-<script>
-import { defineComponent, ref } from "vue";
+<script setup>
+import { ref } from "vue";
+import { defineAsyncComponent } from "vue";
 
 const data = [
   {
@@ -156,20 +195,5 @@ const columns = [
     sort: (a, b) => parseInt(a, 10) - parseInt(b, 10),
   },
 ];
-
-export default defineComponent({
-  name: "TableBasic",
-  setup() {
-    const show_filter = ref(false);
-
-    return {
-      filter: ref(""),
-      show_filter,
-      data,
-      columns,
-    };
-  },
-});
+const options = ref(["Google", "Facebook", "Twitter", "Apple", "Oracle"]);
 </script>
-
-<style scoped></style>

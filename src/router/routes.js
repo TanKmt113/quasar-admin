@@ -22,6 +22,10 @@ const routes = [
       {path: '/Footer', component: () => import('pages/Footer.vue')},
       {path: '/CardHeader', component: () => import('pages/CardHeader.vue')},
 
+      // Admin
+      {path: '/PurchasePlan', component: () => import('pages/PurchasePlan/PurchasePlan.vue')},
+
+
       // Not completed yet
       // {path: '/Taskboard', component: () => import('pages/TaskBoard.vue')},
     ]

@@ -2,7 +2,6 @@
   <q-layout view="hHh lpR fFf" class="bg-grey-1">
     <q-header class="bg-white text-grey-8">
       <q-toolbar class="GNL__toolbar">
-
         <q-btn
           flat
           dense

@@ -6,7 +6,7 @@
           flat
           dense
           round
-          @click="toggleLeftDrawer"
+          @click="toogleMiniState"
           icon="menu"
           aria-label="Menu"
         />
@@ -54,17 +54,20 @@
       v-model="leftDrawerOpen"
       show-if-above
       bordered
+      :mini="miniState"
+      @mouseover="autoMiniState(false)"
+      @mouseout="autoMiniState(true)"
       class="bg-primary text-white"
     >
       <q-list>
-        <q-item to="/" active-class="q-item-no-link-highlighting">
+        <!-- <q-item to="/" active-class="q-item-no-link-highlighting">
           <q-item-section avatar>
             <q-icon name="dashboard"/>
           </q-item-section>
           <q-item-section>
             <q-item-label>Dashboard</q-item-label>
           </q-item-section>
-        </q-item>
+        </q-item> -->
         <q-item to="/Dashboard2" active-class="q-item-no-link-highlighting">
           <q-item-section avatar>
             <q-icon name="dashboard"/>
@@ -75,15 +78,15 @@
         </q-item>
         <q-expansion-item
           icon="pages"
-          label="Pages"
+          label="Quản lý mua sắm"
         >
           <q-list class="q-pl-lg">
-            <q-item to="/Login-1" active-class="q-item-no-link-highlighting">
+            <q-item to="/PurchasePlan" active-class="q-item-no-link-highlighting">
               <q-item-section avatar>
                 <q-icon name="email"/>
               </q-item-section>
               <q-item-section>
-                <q-item-label>Login-1</q-item-label>
+                <q-item-label>Kế hoạch mua sắm</q-item-label>
               </q-item-section>
             </q-item>
             <q-item to="/Lock" active-class="q-item-no-link-highlighting">
@@ -91,7 +94,7 @@
                 <q-icon name="lock"/>
               </q-item-section>
               <q-item-section>
-                <q-item-label>Lock Screen</q-item-label>
+                <q-item-label>Yêu cầu mua sắm</q-item-label>
               </q-item-section>
             </q-item>
             <q-item to="/Lock-2" active-class="q-item-no-link-highlighting">
@@ -99,7 +102,7 @@
                 <q-icon name="lock"/>
               </q-item-section>
               <q-item-section>
-                <q-item-label>Lock Screen - 2</q-item-label>
+                <q-item-label>Tổng hợp yêu cầu mua sắm</q-item-label>
               </q-item-section>
             </q-item>
             <q-item to="/Pricing" active-class="q-item-no-link-highlighting">
@@ -107,7 +110,7 @@
                 <q-icon name="list"/>
               </q-item-section>
               <q-item-section>
-                <q-item-label>Pricing</q-item-label>
+                <q-item-label>Quản lý gói thầu</q-item-label>
               </q-item-section>
             </q-item>
             <q-item-label header class="text-weight-bolder text-white">Generic</q-item-label>
@@ -116,7 +119,7 @@
                 <q-icon name="person"/>
               </q-item-section>
               <q-item-section>
-                <q-item-label>User Profile</q-item-label>
+                <q-item-label>Đánh giá nhà cung cấp</q-item-label>
               </q-item-section>
             </q-item>
             <q-item to="/Maintenance" active-class="q-item-no-link-highlighting">
@@ -129,7 +132,7 @@
             </q-item>
           </q-list>
         </q-expansion-item>
-        <q-expansion-item
+        <!-- <q-expansion-item
           icon="map"
           label="Maps"
         >
@@ -160,7 +163,6 @@
             </q-item>
           </q-list>
         </q-expansion-item>
-
         <q-item to="/Mail" active-class="q-item-no-link-highlighting">
           <q-item-section avatar>
             <q-icon name="email"/>
@@ -169,7 +171,6 @@
             <q-item-label>Mail</q-item-label>
           </q-item-section>
         </q-item>
-
         <q-item to="/directory" active-class="q-item-no-link-highlighting">
           <q-item-section avatar>
             <q-icon name="card_giftcard"/>
@@ -177,9 +178,9 @@
           <q-item-section>
             <q-item-label>Directory</q-item-label>
           </q-item-section>
-        </q-item>
+        </q-item> -->
 
-        <q-item to="/TreeTable" active-class="q-item-no-link-highlighting">
+        <!-- <q-item to="/TreeTable" active-class="q-item-no-link-highlighting">
           <q-item-section avatar>
             <q-icon name="list"/>
           </q-item-section>
@@ -242,17 +243,16 @@
           <q-item-section>
             <q-item-label>Checkout</q-item-label>
           </q-item-section>
-        </q-item>
-
+        </q-item> -->
         <!--        not completed-->
-        <q-item to="/Calendar" active-class="q-item-no-link-highlighting">
+        <!-- <q-item to="/Calendar" active-class="q-item-no-link-highlighting">
           <q-item-section avatar>
             <q-icon name="date_range"/>
           </q-item-section>
           <q-item-section>
             <q-item-label>Calendar</q-item-label>
           </q-item-section>
-        </q-item>
+        </q-item> -->
 
         <!--        not completed-->
         <!--        <q-item to="/Taskboard" active-class="q-item-no-link-highlighting">-->
@@ -264,7 +264,7 @@
         <!--          </q-item-section>-->
         <!--        </q-item>-->
 
-        <q-item to="/Pagination" active-class="q-item-no-link-highlighting">
+        <!-- <q-item to="/Pagination" active-class="q-item-no-link-highlighting">
           <q-item-section avatar>
             <q-icon name="date_range"/>
           </q-item-section>
@@ -314,7 +314,7 @@
               </q-item>
             </q-expansion-item>
           </q-expansion-item>
-        </q-expansion-item>
+        </q-expansion-item> -->
       </q-list>
     </q-drawer>
 
@@ -341,6 +341,8 @@ export default defineComponent({
 
   setup() {
     const leftDrawerOpen = ref(false)
+    const miniState = ref(false)
+    const isMiniState =  ref(false);
     const $q = useQuasar()
 
     return {
@@ -348,6 +350,18 @@ export default defineComponent({
       leftDrawerOpen,
       toggleLeftDrawer() {
         leftDrawerOpen.value = !leftDrawerOpen.value
+      },
+      miniState,
+      toogleMiniState() {
+        miniState.value = !miniState.value
+        isMiniState.value = !isMiniState.value
+      },
+
+      autoMiniState(type){
+        
+        if(isMiniState.value){
+          miniState.value = type
+        }
       }
     }
   }
